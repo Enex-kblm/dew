@@ -7,6 +7,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Dancing+Script:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <meta name="description" content="A beautiful, interactive birthday celebration website with personalized messages and animations">
+    <meta name="theme-color" content="#e854f0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
@@ -25,35 +29,35 @@
       <!-- Header section -->
       <header class="header">
         <div class="header-content">
-          <h1 class="main-title">🎉 Birthday Celebration 🎉</h1>
+          <h1 class="main-title" role="banner">🎉 Birthday Celebration 🎉</h1>
           <p class="subtitle">A special day deserves a special celebration</p>
         </div>
       </header>
 
       <!-- Message display section -->
-      <section class="message-section" id="messageSection">
+      <section class="message-section" id="messageSection" aria-label="Birthday message display">
         <div class="message-card">
           <div class="message-icon">
-            <span class="icon">🎂</span>
+            <span class="icon" role="img" aria-label="Birthday cake">🎂</span>
           </div>
           <div class="message-content">
-            <h2 class="message-title">Happy Birthday!</h2>
+            <h2 class="message-title" id="main-message">Happy Birthday!</h2>
             <p class="message-text">
               Wishing you a day filled with happiness and a year filled with joy.
             </p>
             <div class="recipient-name">
               <span class="name-label">Celebrating:</span>
-              <span class="name" id="recipientName">Lovie</span>
+              <span class="name" id="recipientName" aria-live="polite">Lovie</span>
             </div>
           </div>
         </div>
       </section>
 
       <!-- Cake animation section -->
-      <section class="cake-section">
+      <section class="cake-section" aria-label="Interactive birthday cake">
         <div class="cake-container">
           <!-- Animated candle -->
-          <div class="candle">
+          <div class="candle" role="img" aria-label="Birthday candle with flame">
             <div class="flame"></div>
             <div class="flame"></div>
             <div class="flame"></div>
@@ -193,39 +197,52 @@
       </section>
 
       <!-- Interactive controls -->
-      <section class="controls-section">
+      <section class="controls-section" aria-label="Interactive controls">
         <div class="controls">
-          <button class="btn btn-primary" id="changeNameBtn">
+          <button class="btn btn-primary" id="changeNameBtn" aria-describedby="change-name-help">
             <span class="btn-icon">✏️</span>
             Change Name
           </button>
-          <button class="btn btn-secondary" id="playAnimationBtn">
+          <button class="btn btn-secondary" id="playAnimationBtn" aria-describedby="animation-help">
             <span class="btn-icon">🎬</span>
             Replay Animation
           </button>
         </div>
+        <!-- Hidden help text for screen readers -->
+        <div id="change-name-help" class="sr-only">Opens a dialog to change the birthday person's name</div>
+        <div id="animation-help" class="sr-only">Replays the birthday cake animation sequence</div>
       </section>
 
       <!-- Footer -->
-      <footer class="footer">
+      <footer class="footer" role="contentinfo">
         <p>&copy; 2025 Birthday Celebration App. Made with ❤️</p>
       </footer>
     </div>
 
     <!-- Name change modal -->
-    <div class="modal" id="nameModal">
+    <div class="modal" id="nameModal" role="dialog" aria-labelledby="modal-title" aria-describedby="modal-description" aria-hidden="true">
       <div class="modal-content">
         <div class="modal-header">
-          <h3>Change Recipient Name</h3>
-          <button class="modal-close" id="closeModal">&times;</button>
+          <h3 id="modal-title">Change Recipient Name</h3>
+          <button class="modal-close" id="closeModal" aria-label="Close dialog">&times;</button>
         </div>
         <div class="modal-body">
+          <p id="modal-description" class="sr-only">Enter a new name for the birthday person. The name will be displayed in the celebration message.</p>
           <label for="nameInput" class="input-label">Enter the birthday person's name:</label>
-          <input type="text" id="nameInput" class="name-input" placeholder="Enter name..." maxlength="20">
+          <input 
+            type="text" 
+            id="nameInput" 
+            class="name-input" 
+            placeholder="Enter name..." 
+            maxlength="20"
+            aria-describedby="name-requirements"
+            autocomplete="given-name"
+          >
+          <div id="name-requirements" class="sr-only">Name must be between 1 and 20 characters</div>
         </div>
         <div class="modal-footer">
           <button class="btn btn-secondary" id="cancelBtn">Cancel</button>
-          <button class="btn btn-primary" id="saveNameBtn">Save</button>
+          <button class="btn btn-primary" id="saveNameBtn" disabled>Save</button>
         </div>
       </div>
     </div>
